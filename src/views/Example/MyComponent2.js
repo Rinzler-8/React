@@ -14,8 +14,21 @@ class MyComponent2 extends React.Component {
 
   addNewJob = (job) => {
     console.log("check job from parent: ", job);
+    let currentJobs = this.state.arrJobs;
+    currentJobs.push(job);
     this.setState({
-      arrJobs: [...this.state.arrJobs, job],
+      // arrJobs: [...this.state.arrJobs, job],
+      // "..." - copy 3 phần tử arrJobs ở trên
+      arrJobs: currentJobs,
+    });
+  };
+
+  deleteJob = (job) => {
+    let currentJobs = this.state.arrJobs;
+    currentJobs = currentJobs.filter((item) => item.id !== job.id);
+    // lọc(xóa) phần tử có giống id cần xóa, chỉ trả về array chứa những phần tử khác id cần xóa
+    this.setState({
+      arrJobs: currentJobs,
     });
   };
 
@@ -26,7 +39,7 @@ class MyComponent2 extends React.Component {
       <>
         {/* <> - <React.Fragment> */}
         <AddComponent addNewJob={this.addNewJob} />
-        <ChildComponent arrJobs={this.state.arrJobs} />
+        <ChildComponent arrJobs={this.state.arrJobs} deleteJob={this.deleteJob} />
       </>
     );
   }
