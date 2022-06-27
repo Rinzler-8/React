@@ -12,14 +12,20 @@ class MyComponent2 extends React.Component {
     ],
   };
 
+  addNewJob = (job) => {
+    console.log("check job from parent: ", job);
+    this.setState({
+      arrJobs: [...this.state.arrJobs, job],
+    });
+  };
+
   render() {
     console.log(">>> call render: ", this.state);
 
     return (
       <>
-        <AddComponent />
         {/* <> - <React.Fragment> */}
-
+        <AddComponent addNewJob={this.addNewJob} />
         <ChildComponent arrJobs={this.state.arrJobs} />
       </>
     );
